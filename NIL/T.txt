@@ -1,0 +1,142 @@
+// Traversal Preorder-Inorder-postorder.....
+
+
+
+// Traversing a tree in pre-order,in-order,post-order
+
+
+#include<stdio.h>
+#include<stdlib.h>
+
+
+struct node
+{
+    int data;
+    struct node* left;
+    struct node* right;
+};
+
+struct node* root = NULL;
+
+struct node* createNode(int data)
+{
+    struct node* temp;
+    temp = (struct node*)malloc(sizeof(struct node));
+    temp->data = data;
+    temp->left = NULL;
+    temp->right = NULL;
+    return (temp);
+}
+
+void insert(int data)
+{
+    struct node* temp, *parent;
+    temp = (struct node*)malloc(sizeof(struct node));
+    temp->data = data;
+    temp->left = NULL;
+    temp->right = NULL;
+    parent = root;
+
+    if(root == NULL)
+    {
+        root = temp;
+
+    }
+    else
+    {
+        struct node* currentNode;
+        currentNode = root;
+
+        while(currentNode)
+        {
+            parent = currentNode;
+
+            if(temp->data > currentNode->data)
+            {
+                currentNode = currentNode->right;
+            }
+            else
+            {
+                currentNode = currentNode->left;
+            }
+
+        }
+
+        if(temp->data > parent->data)
+        {
+            parent->right = temp;
+
+        }
+        else
+        {
+            parent->left = temp;
+
+        }
+    }
+}
+
+void traverseInorder(struct node* node)
+{
+    if (node != NULL)
+    {
+        traverseInorder(node->left);
+
+        printf("%d ", node->data);
+
+        traverseInorder(node->right);
+    }
+
+
+}
+
+void traversePreorder(struct node* node)
+{
+    if (node != NULL)
+    {
+        printf("%d ", node->data);
+
+        traversePreorder(node->left);
+
+        traversePreorder(node->right);
+    }
+
+
+}
+
+void traversePostorder(struct node* node)
+{
+    if (node != NULL)
+    {
+        traversePostorder(node->left);
+
+        traversePostorder(node->right);
+
+        printf("%d ", node->data);
+    }
+
+
+}
+
+void main()
+{
+
+
+    root = createNode(1);
+    root->left = createNode(13);
+    root->right = createNode(12);
+
+    root->right->left = createNode(5);
+    root->right->right = createNode(6);
+
+    printf("Traversing In-Order : ");
+    traverseInorder(root);
+    printf("\n");
+
+    printf("Traversing Pre-Order : ");
+    traversePreorder(root);
+    printf("\n");
+
+    printf("Traversing Post-Order : ");
+    traversePostorder(root);
+    printf("\n");
+}

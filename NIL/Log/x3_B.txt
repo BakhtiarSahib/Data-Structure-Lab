@@ -1,0 +1,43 @@
+//Excess3 to BCD
+
+
+
+
+module ex3_to_bcd(
+    input w,
+    input x,
+    input y,
+    input z,
+    output a,
+    output b,
+    output c,
+    output d
+    );
+assign a = ((w & x) | (w & y & z));
+assign b = (((~x) & (~y)) | ((~x) & (~z)) | (x & y & z));
+assign c = (((~y) & z) | (y & (~z)));
+assign d = ~z;
+
+endmodul
+module test;
+reg w,x,y,z ;
+wire a,b,c,d;
+bcd_ex3_Dataflow object(w,x,y,z,a,b,c,d);
+initial
+begin
+w= 0;x=0;y=1;z=1;
+#5 w= 0;x=0;y=1;z=1;
+#5 a= 0;b=1;c=0;d=0;
+#5 a= 0;b=1;c=0;d=1;
+#5 a= 0;b=1;c=1;d=0;
+#5 a= 0;b=1;c=1;d=1;
+#5 a= 1;b=0;c=0;d=0;
+#5 a= 1;b=0;c=0;d=1;
+#5 a= 1;b=0;c=1;d=0;
+#5 a= 1;b=0;c=1;d=1;
+#5 a= 1;b=1;c=0;d=0;
+end
+endmodule
+
+
+

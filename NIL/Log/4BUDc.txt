@@ -1,0 +1,46 @@
+//4bitUpdown counter
+
+
+
+
+
+module updown(out, reset, clk, mode);
+
+output reg [2:0]out;
+input clk, reset, mode;
+always @(posedge clk)
+
+begin
+case({reset, mode})
+2'b10:out=0;
+2'b11:out=0;
+2'b00:out=out+1;
+2'b01:out=out-1;
+endcase
+
+end
+endmodule
+
+module updown_tb;
+reg reset;
+reg clk;
+reg mode;
+
+wire [2:0]out;
+
+updown udc(
+.out(out),
+.reset(reset),
+.clk(clk),
+.mode(mode)
+);
+
+initial begin
+
+reset=1; clk=1; mode=0;
+#100; reset=0; mode=0;
+#200; reset=0; mode=1;
+end
+
+always #25 clk = ~clk
+endmodule

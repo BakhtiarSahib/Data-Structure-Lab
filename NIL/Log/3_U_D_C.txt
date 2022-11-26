@@ -1,0 +1,54 @@
+//3 bit up down counter
+
+
+
+module three_bit_updown_counter (clk, up_down, clear, count);
+
+input clk, up_down, clear;
+output reg [2:0]count;
+always @(posedge clk or posedge clear)
+ begin
+   if (clear)
+     begin
+       count <= 3'b000;
+     end
+     else
+       begin //------
+          if (up_down)
+             begin
+               count <= count + 1;
+             end
+          else
+             begin
+               count <= count - 1;
+             end
+       end //------
+  end
+endmodule
+
+module test_counter;
+ reg clk;
+ reg up_down;
+ reg clear;
+
+ wire[2:0]count;
+ 
+three_bit_updown_counter abc (
+  .clk(clk),
+  .up_down(up_down),
+  .clear(clear),
+  .count(count)
+    );
+
+initial begin
+      clear =1; clk=0; up_down=0;
+#100  clear =0; up_down=1;
+#200  up_down=0;
+#200
+$finish;
+
+end
+  
+  always #10 clk = ~clk;
+
+endmodule  

@@ -1,0 +1,419 @@
+/*
+ * Program: Deleting a node in the linked list
+ * Language: C
+ */
+
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *next;
+};
+
+void addLast(struct node **head, int val)
+{
+    //create a new node
+    struct node *newNode = malloc(sizeof(struct node));
+    newNode->data = val;
+    newNode->next     = NULL;
+
+    //if head is NULL, it is an empty list
+    if(*head == NULL)
+         *head = newNode;
+    //Otherwise, find the last node and add the newNode
+    else
+    {
+        struct node *lastNode = *head;
+
+        //last node's next address will be NULL.
+        while(lastNode->next != NULL)
+        {
+            lastNode = lastNode->next;
+        }
+
+        //add the newNode at the end of the linked list
+        lastNode->next = newNode;
+    }
+
+}
+
+void deleteNode(struct node **head, int key)
+{
+      //temp is used to freeing the memory
+      struct node *temp;
+
+      //key found on the head node.
+      //move to head node to the next and free the head.
+      if((*head)->data == key)
+      {
+          temp = *head;    //backup to free the memory
+          *head = (*head)->next;
+          free(temp);
+      }
+      else
+      {
+          struct node *current  = *head;
+          while(current->next != NULL)
+          {
+              //if yes, we need to delete the current->next node
+              if(current->next->data == key)
+              {
+                  temp = current->next;
+                  //node will be disconnected from the linked list.
+                  current->next = current->next->next;
+                  free(temp);
+                  break;
+              }
+              //Otherwise, move the current node and proceed
+              else
+                  current = current->next;
+          }
+      }
+}
+
+void printList(struct node *head)
+{
+    struct node *temp = head;
+
+    //iterate the entire linked list and print the data
+    while(temp != NULL)
+    {
+         printf("%d ->", temp->data);
+         temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+int main()
+{
+     struct node *head = NULL;
+
+     addLast(&head,10);
+     addLast(&head,20);
+     addLast(&head,30);
+     printf("Linked List Elements:\n");
+     printList(head);
+
+     //delete first node
+     deleteNode(&head,10);
+     printf("Deleted 10. The New Linked List:\n");
+     printList(head);
+
+     //delete last node
+     deleteNode(&head,30);
+     printf("Deleted 30. The New Linked List:\n");
+     printList(head);
+
+     //delete 20
+     deleteNode(&head,20);
+     printf("Deleted 20. The New Linked List:\n");
+     printList(head);
+
+     return 0;
+}
+
+
+
+
+
+
+
+
+
+
+2..........
+
+
+// A complete working C program
+// to demonstrate deletion in
+// singly linked list
+#include <stdio.h>
+#include <stdlib.h>
+
+// A linked list node
+struct Node {
+	int data;
+	struct Node* next;
+};
+
+/* Given a reference (pointer to pointer) to the head of a
+list and an int, inserts a new node on the front of the
+list. */
+void push(struct Node** head_ref, int new_data)
+{
+	struct Node* new_node
+		= (struct Node*)malloc(sizeof(struct Node));
+	new_node->data = new_data;
+	new_node->next = (*head_ref);
+	(*head_ref) = new_node;
+}
+
+/* Given a reference (pointer to pointer) to the head of a
+list and a key, deletes the first occurrence of key in
+linked list */
+void deleteNode(struct Node** head_ref, int key)
+{
+	// Store head node
+	struct Node *temp = *head_ref, *prev;
+
+	// If head node itself holds the key to be deleted
+	if (temp != NULL && temp->data == key) {
+		*head_ref = temp->next; // Changed head
+		free(temp); // free old head
+		return;
+	}
+
+	// Search for the key to be deleted, keep track of the
+	// previous node as we need to change 'prev->next'
+	while (temp != NULL && temp->data != key) {
+		prev = temp;
+		temp = temp->next;
+	}
+
+	// If key was not present in linked list
+	if (temp == NULL)
+		return;
+
+	// Unlink the node from linked list
+	prev->next = temp->next;
+
+	free(temp); // Free memory
+}
+
+// This function prints contents of linked list starting
+// from the given node
+void printList(struct Node* node)
+{
+	while (node != NULL) {
+		printf(" %d ", node->data);
+		node = node->next;
+	}
+}
+
+// Driver code
+int main()
+{
+	/* Start with the empty list */
+	struct Node* head = NULL;
+
+	push(&head, 7);
+	push(&head, 1);
+	push(&head, 3);
+	push(&head, 2);
+
+	puts("Created Linked List: ");
+	printList(head);
+	deleteNode(&head, 1);
+	puts("\nLinked List after Deletion of 1: ");
+	printList(head);
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+3...........delete note at the beginning
+
+
+
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Node{
+    int data;
+    struct Node *next;
+};
+
+void deleteStart(struct Node** head){
+    struct Node* temp = *head;
+  
+    // if there are no nodes in Linked List can't delete
+    if(*head == NULL){
+        printf("Linked List Empty, nothing to delete");
+        return;
+    }
+    
+    // move head to next node
+    *head = (*head)->next;
+    printf("Deleted: %d\n",temp->data);
+    free(temp);
+    
+}
+
+void display(struct Node* node){
+
+    // as linked list will end when Node is Null
+    while(node!=NULL){
+        printf("%d ",node->data);
+        node = node->next;
+    }
+    printf("\n");
+}
+
+int main()
+{
+    //creating 4 pointers of type struct Node
+    //So these can point to address of struct type variable
+    struct Node* head = NULL; 
+    struct Node* node2 = NULL; 
+    struct Node* node3 = NULL; 
+    struct Node* node4 = NULL;
+
+    // allocate 3 nodes in the heap 
+    head =  (struct Node*)malloc(sizeof(struct Node)); 
+    node2 = (struct Node*)malloc(sizeof(struct Node)); 
+    node3 = (struct Node*)malloc(sizeof(struct Node)); 
+    node4 = (struct Node*)malloc(sizeof(struct Node));
+
+   
+    head->data  = 22; // data set for head node 
+    head->next  = node2; // next pointer assigned to address of node2 
+
+    node2->data = 30; 
+    node2->next = node3; 
+
+    node3->data = 24;
+    node3->next = node4; 
+
+    node4->data = 20;
+    node4->next = NULL;
+
+    /*No need for & i.e. address as we do not
+    need to change head address
+    */
+    printf("Linked List Before Operations : "); 
+    display(head);
+    
+    deleteStart(&head);
+    deleteStart(&head);
+    
+    printf("Linked List After Operations : ");
+    display(head);
+    
+    return 0; 
+}
+
+
+
+
+
+4............deleted node at the end
+
+
+
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Node{
+    int data;
+    struct Node *next;
+};
+
+void deleteEnd(struct Node** head){
+    struct Node* temp = *head;
+    struct Node* previous;
+    
+    // if there are no nodes in Linked List can't delete
+    if(*head == NULL){
+        printf("Linked List Empty, nothing to delete");
+        return;
+    }
+    
+    // if Linked List has only 1 node
+    if(temp->next == NULL){
+        printf("%d deleted\n",(*head)->data);
+        *head = NULL;
+        return;
+    }
+    
+    // else traverse to the last node
+    while (temp->next != NULL) 
+    {
+        // store previous link node as we need to change its next val
+        previous = temp; 
+        temp = temp->next; 
+    }
+    // Curr assign 2nd last node's next to Null
+    previous->next = NULL;
+    // delete the last node
+    printf("%d deleted\n", temp->data);
+    free(temp);
+    // 2nd last now becomes the last node
+}
+
+void display(struct Node* node){
+
+    // as linked list will end when Node is Null
+    while(node!=NULL){
+        printf("%d ",node->data);
+        node = node->next;
+    }
+    printf("\n\n");
+}
+
+int main()
+{
+    //creating 4 pointers of type struct Node
+    //So these can point to address of struct type variable
+    struct Node* head = NULL; 
+    struct Node* node2 = NULL; 
+    struct Node* node3 = NULL; 
+    struct Node* node4 = NULL;
+    struct Node* node5 = NULL;
+    struct Node* node6 = NULL;
+
+    // allocate 3 nodes in the heap 
+    head =  (struct Node*)malloc(sizeof(struct Node)); 
+    node2 = (struct Node*)malloc(sizeof(struct Node)); 
+    node3 = (struct Node*)malloc(sizeof(struct Node)); 
+    node4 = (struct Node*)malloc(sizeof(struct Node));
+    node5 = (struct Node*)malloc(sizeof(struct Node));
+    node6 = (struct Node*)malloc(sizeof(struct Node));
+
+   
+    head->data = 2; // data set for head node 
+    head->next = node2; // next pointer assigned to address of node2 
+
+    node2->data = 4; 
+    node2->next = node3; 
+
+    node3->data = 6;
+    node3->next = node4; 
+
+    node4->data = 8;
+    node4->next = node5;
+    
+    node5->data = 10;
+    node5->next = node6;
+    
+    node6->data = 12;
+    node6->next = NULL;
+   
+    printf("Linked list: ");
+    display(head);
+    
+    deleteEnd(&head);
+    deleteEnd(&head);
+    
+    printf("\nLinked list: ");
+    display(head);
+    
+    return 0; 
+}
+
+
+
+
+5.....................
+
+
+

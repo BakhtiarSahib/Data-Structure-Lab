@@ -1,0 +1,22 @@
+//4bit adder subtractor
+
+module adder_subtractor(a,b,m,sum,Cout);
+
+input [3:0] a,b;
+input m;
+output reg [3:0]sum;
+output reg Cout;
+
+always@ *
+begin
+if(m==0)
+begin
+{Cout,sum} = a+b;
+end
+else
+begin
+{Cout,sum} = a-b;
+end
+
+end
+endmodule

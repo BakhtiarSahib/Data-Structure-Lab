@@ -1,0 +1,128 @@
+// Factorial number .....
+
+
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+
+int fact(int n)
+{
+    if(n==0)
+        return 1;
+    else
+        return n*fact(n-1);;
+}
+
+int main()
+{
+    int n,f;
+
+    printf("Enter the  number: ");
+    scanf("%d",&n);
+
+    f=fact(n);
+
+    printf("%d!=%d",n,f);
+
+getch();
+return 0;
+
+}
+
+
+2.Fibonacci Series.....
+
+
+
+
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+
+int fibo(int n)
+{
+    if(n==0)
+        return 0;
+    else if(n==1)
+        return 1;
+    else
+        return (fibo(n-1)+fibo(n-2));
+}
+
+int main()
+{
+    int n,f,i,num;
+
+    printf("Enter the number: ");
+    scanf("%d",&n);
+    f=fibo(n);
+
+    printf("%dth Fibonacci number is %d",n,f);
+
+getch();
+return 0;
+}
+
+
+
+..............
+
+
+
+//stack ar program
+
+#include<stdio.h>
+
+#define CAPACITY 3
+int stack[CAPACITY];
+int top = -1;
+void push(int x)
+{
+    if(top<CAPACITY-1)
+    {
+        top = top +1;
+        stack[top]= x ;
+        printf("Item: %d\n",x);
+    }
+    else
+        printf("Stack is Overflow");
+
+}
+int pop()
+{
+    if(top>=0)
+    {
+        int val = stack[top];
+        top = top-1;
+        return val;
+    }
+    printf("Stack is emty");
+    return -1;
+
+}
+int peek()
+{
+    if(top>=0)
+    {
+        return stack[top];
+    }
+    printf("Stack is empty");
+    return -1;
+}
+
+int main()
+{
+    peek();
+    push(10);
+    push(20);
+    push(30);
+
+    printf("Pop item: %d\n", pop());
+    push(40);
+    printf("Top of stack: %d\n", peek());
+
+
+
+}
+
+

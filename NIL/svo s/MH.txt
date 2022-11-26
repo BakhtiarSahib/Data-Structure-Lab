@@ -1,0 +1,87 @@
+//Max heap
+
+
+
+
+// Insert an element into a Max Heap
+
+#include <stdio.h>
+
+
+int size = 0;
+
+void swap(int *x, int *y){
+    int temp = *y;
+    *y = *x;
+    *x = temp;
+}
+
+void heapify(int maxHeap[], int size, int i){
+
+    if (size == 1){
+        printf("Only one element in the Max-Heap");
+    }
+
+    else{
+        int largest = i;
+        int l = 2 * i + 1;
+        int r = 2 * i + 2;
+
+        if (l < size && maxHeap[l] > maxHeap[largest]){
+            largest = l;
+        }
+
+        if (r < size && maxHeap[r] > maxHeap[largest]){
+            largest = r;
+        }
+
+        if (largest != i){
+            swap(&maxHeap[i],&maxHeap[largest]);
+            heapify(maxHeap,size,largest);
+        }
+
+    }
+}
+
+void insert(int maxHeap[], int data){
+
+    if (size == 0){
+        maxHeap[0] = data;
+        size += 1;
+    }
+
+    else{
+        maxHeap[size] = data;
+        size += 1;
+
+        for (int i = size / 2 - 1; i >= 0; i--){
+            heapify(maxHeap,size,i);
+        }
+
+    }
+
+}
+
+void printmaxHeap(int maxHeap[], int size){
+
+    for (int i = 0; i < size; ++i){
+        printf("%d ", maxHeap[i]);
+    }
+
+    printf("\n");
+}
+
+void main(){
+
+    int maxHeap[10];
+
+    insert(maxHeap,5);
+    insert(maxHeap,4);
+    insert(maxHeap,9);
+    insert(maxHeap,6);
+    insert(maxHeap,2);
+    insert(maxHeap,0);
+
+    printf("The Max-Heap : ");
+    printmaxHeap(maxHeap,size);
+}

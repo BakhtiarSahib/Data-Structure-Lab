@@ -1,0 +1,60 @@
+// Insert an element into Binary Search Tree
+
+
+#include<stdio.h>
+#include<stdlib.h>
+
+
+struct node{
+    int data;
+    struct node* left;
+    struct node* right;
+};
+
+struct node* root = NULL;
+
+void insert(int data){
+    struct node* temp, *parent;
+    temp = (struct node*)malloc(sizeof(struct node));
+    temp->data = data;
+    temp->left = NULL;
+    temp->right = NULL;
+    parent = root;
+
+    if(root == NULL){
+        root = temp;
+        printf("root here : %d\n",root->data);
+    }
+    else{
+        struct node* currentNode;
+        currentNode = root;
+
+        while(currentNode){
+            parent = currentNode;
+
+            if(temp->data > currentNode->data){
+                currentNode = currentNode->right;
+            }
+            else{
+                currentNode = currentNode->left;
+            }
+
+        }
+
+        if(temp->data > parent->data){
+            parent->right = temp;
+            printf("right here : %d\n",parent->right->data);
+        }
+        else{
+            parent->left = temp;
+            printf("left here : %d\n",parent->left->data);
+        }
+    }
+}
+
+void main(){
+    insert(40);
+    insert(50);
+    insert(30);
+    insert(1);
+}

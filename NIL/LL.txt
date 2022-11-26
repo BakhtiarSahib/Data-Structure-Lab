@@ -1,0 +1,514 @@
+1.// Create Linkedlist......
+
+
+
+  #include<stdio.h>
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+int main()
+{
+    struct Node *a = NULL;
+    struct Node *b = NULL;
+    struct Node *c = NULL;
+
+    a = (struct Node *) malloc(sizeof(struct Node));
+    b = (struct Node *) malloc(sizeof(struct Node));
+    c = (struct Node *) malloc(sizeof(struct Node));
+
+
+    a->data = 10;
+    b->data = 20;
+    c->data = 30;
+
+    a->next = b;
+    b->next = c;
+    c->next = NULL;
+
+    while(a!=NULL)
+    {
+        printf("%d-> ",a->data);
+        a = a->next  ;
+    }
+    printf("NULL");
+}
+
+
+
+
+2.// Create LinkedList from array(keyboard Input)
+
+
+sumaiya code......
+
+
+#include<stdio.h>
+#include<stdlib.h>
+//struct Node *createLinkList(int a[],int size);
+
+struct Node{
+int data;
+struct Node *next;
+};
+
+
+ struct Node *createLinkList(int a[],int size)
+{
+    struct Node *head = NULL, *temp = NULL, *current = NULL;
+
+
+    int i;
+    for(i=0;i<size;i++)
+    {
+        scanf("%d",&a[i]);
+    }
+     for(i=0;i<size;i++)
+    {
+       temp = (struct Node *)malloc(sizeof(struct Node));
+        temp->data = a[i];
+        temp->next = NULL;
+        if(head == NULL)
+        {
+            head = temp;
+            current = temp;
+        }
+        else
+        {
+            current->next = temp;
+            current =   current->next;
+        }
+    }
+    return head;
+
+
+}
+
+int main()
+{
+    int n;
+    struct Node *head;
+
+    scanf("%d",&n);
+    int a[n];
+   head = createLinkList(a,n);
+   while(head!=NULL)
+   {
+       printf("%d->",head->data);
+       head = head->next;
+   }
+   printf("NULL");
+}
+
+
+Rizvi Code....
+
+
+
+
+#include<stdio.h>
+#include<stdlib.h>
+struct node *createLinkedList(int a[],int size);
+
+struct node
+{
+    int data;
+    struct node *next;
+};
+
+
+
+int main()
+{
+    int size,i;
+    printf("Enter array size : ");
+    scanf("%d",&size);
+    printf("Enter array  : ");
+    int a[size] ;
+    for(i=0; i<size; i++)
+    {
+        scanf("%d",&a[i]);
+    }
+   struct node *head;
+   head = createLinkedList(a,size);
+
+   while(head != NULL ){
+      printf("%d-> ",head->data);
+      head = head->next;
+
+
+   }
+   printf("NULL");
+
+}
+
+
+
+
+ struct node *createLinkedList(int a[],int size)
+{
+    int i;
+    struct node *head = NULL, *temp = NULL, *current = NULL ;
+    for(i=0 ; i<size ; i++){
+        temp = (struct node *)malloc(sizeof(struct node));
+         temp->data = a[i];
+         temp->next = NULL;
+
+         if(head == NULL){
+            head = temp;
+            current = temp;
+         }
+         else{
+            current->next = temp;
+            current = current->next;
+         }
+    }
+ return head;
+
+}
+
+
+3.//searchLinkedlist .....
+
+
+#include<stdio.h>
+#include<stdlib.h>
+//struct Node *createLinkList(int a[],int size);
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+int searchLinkList(struct Node *head,int search)
+{
+    int index = 1;
+    while (head != NULL)
+    {
+        if(head->data == search)
+        {
+            return index;
+        }
+        index++;
+        head = head->next;
+    }
+    return -1;
+}
+
+
+struct Node *createLinkList(int a[],int size)
+{
+    struct Node *head = NULL, *temp = NULL, *current = NULL;
+
+
+    int i;
+    for(i=0; i<size; i++)
+    {
+        scanf("%d",&a[i]);
+    }
+    for(i=0; i<size; i++)
+    {
+        temp = (struct Node *)malloc(sizeof(struct Node));
+        temp->data = a[i];
+        temp->next = NULL;
+        if(head == NULL)
+        {
+            head = temp;
+            current = temp;
+        }
+        else
+        {
+            current->next = temp;
+            current =   current->next;
+        }
+    }
+    return head;
+
+
+}
+
+int main()
+{
+    int n,search;
+    struct Node *head;
+
+    scanf("%d",&n);
+    int a[n];
+    head = createLinkList(a,n);
+    printf("Search Element: ");
+    scanf("%d",&search);
+    printf("Index: %d",searchLinkList(head,search));
+
+}
+
+
+
+4.//insertatBeginning linklist............
+
+
+
+#include<stdio.h>
+#include<stdlib.h>
+
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+void insertAtBeginning(struct Node *head,int data)
+{
+    struct Node *temp = (struct Node *)malloc(sizeof(struct Node));
+    temp->data = data;
+    temp->next = head;
+    struct Node *newhead = temp;
+    while(newhead != NULL)
+    {
+        printf("%d->",newhead->data);
+        newhead = newhead->next;
+    }
+    printf("NULL");
+
+}
+
+
+struct Node *createLinkList(int a[],int size)
+{
+    struct Node *head = NULL, *temp = NULL, *current = NULL;
+
+
+    int i;
+    printf("Enter array Element: ");
+
+    for(i=0; i<size; i++)
+    {
+        scanf("%d",&a[i]);
+    }
+    for(i=0; i<size; i++)
+    {
+        temp = (struct Node *)malloc(sizeof(struct Node));
+        temp->data = a[i];
+        temp->next = NULL;
+        if(head == NULL)
+        {
+            head = temp;
+            current = temp;
+        }
+        else
+        {
+            current->next = temp;
+            current =   current->next;
+        }
+    }
+    return head;
+}
+
+
+int main()
+{
+    int n,data;
+    struct Node *head;
+    printf("Enter Array size: ");
+    scanf("%d",&n);
+    int a[n];
+
+    head = createLinkList(a,n);
+    printf("Insert item that you want to add in Linkedlist At thr beginning: ");
+    scanf("%d",&data);
+    insertAtBeginning(head,data);
+}
+
+
+
+
+
+
+
+5.//InsertAtEnding LinkedList.......
+
+
+#include<stdio.h>
+#include<stdlib.h>
+
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+void insertAtEnding(struct Node *head,int data)
+{
+    struct Node *temp = (struct Node *)malloc(sizeof(struct Node));
+    temp->data = data;
+    temp->next = head;
+    struct Node *newhead = temp;
+    while(newhead != NULL)
+    {
+        printf("%d->",newhead->data);
+        newhead = newhead->next;
+    }
+    printf("NULL");
+
+}
+
+
+struct Node *createLinkList(int a[],int size)
+{
+    struct Node *head = NULL, *temp = NULL, *current = NULL;
+
+
+    int i;
+    printf("Insert item that we want to add in Endinging: ");
+
+    for(i=0; i<size; i++)
+    {
+        scanf("%d",&a[i]);
+    }
+    for(i=0; i<size; i++)
+    {
+        temp = (struct Node *)malloc(sizeof(struct Node));
+        temp->data = a[i];
+        temp->next = NULL;
+        if(head == NULL)
+        {
+            head = temp;
+            current = temp;
+        }
+        else
+        {
+            current->next = temp;
+            current =   current->next;
+        }
+    }
+    return head;
+}
+
+
+int main()
+{
+    int n,data;
+    struct Node *head;
+    printf("Enter Array size: ");
+    scanf("%d",&n);
+    int a[n];
+     printf("Enter array Element: ");
+
+    scanf("%d",&data);
+    head = createLinkList(a,n);
+
+    insertAtEnding(head,data);
+}
+
+
+
+
+6.InsertMiddle LinkedList......
+
+
+
+#include<stdio.h>
+#include<stdlib.h>
+
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+void insertMiddle(struct Node *head,int pos,int value)
+{
+    struct Node *temp= head;
+    int counter =0;
+    while (temp!=NULL)
+    {
+        counter++;
+        if(counter == pos)
+        {
+            struct Node *newNode= (struct Node *)malloc(sizeof(struct Node));
+            newNode->data = value;
+            newNode->next = temp->next;
+            temp->next = newNode;
+        }
+
+        temp = temp->next;
+    }
+    print(head);
+
+
+}
+
+
+struct Node *createLinkList(int a[],int size)
+{
+    struct Node *head = NULL, *temp = NULL, *current = NULL;
+
+
+    int i;
+    printf("Enter Array Element: ");
+    for(i=0; i<size; i++)
+    {
+        scanf("%d",&a[i]);
+    }
+    for(i=0; i<size; i++)
+    {
+        temp = (struct Node *)malloc(sizeof(struct Node));
+        temp->data = a[i];
+        temp->next = NULL;
+        if(head == NULL)
+        {
+            head = temp;
+            current = temp;
+        }
+        else
+        {
+            current->next = temp;
+            current = current->next;
+        }
+    }
+    return head;
+
+
+}
+void print(struct Node *head)
+{
+    struct Node *temp = head;
+    while(temp!=NULL)
+    {
+
+        printf("%d->",temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+int main()
+{
+    int n,pos,value;
+    struct Node *head;
+    printf("Enter Array Size: ");
+    scanf("%d",&n);
+    int a[n];
+    head = createLinkList(a,n);
+    printf("Position: ");
+    scanf("%d",&pos);
+    pos = pos -1;
+    printf("value: ");
+    scanf("%d",&value);
+    print(head);
+    insertMiddle(head,pos,value);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,249 @@
+//Serial In Serial Out........
+
+
+
+
+
+
+
+module sisomod(clk,clear,si,so);
+
+input clk,si,clear;
+
+output so;
+
+reg so;
+
+reg [3:0] tmp;
+
+always @(posedge clk )
+
+begin
+
+if (clear)
+
+tmp <= 4’b0000;
+
+else
+
+tmp <= tmp << 1;
+
+tmp[0] <= si;
+
+so = tmp[3];
+
+end
+
+endmodule
+
+TEST BENCH
+
+module sisot_b;
+
+reg clk;
+
+reg clear;
+
+reg si;
+
+wire so;
+
+sisomod uut (.clk(clk), .clear(clear),.si(si),.so(so));
+
+initial begin
+
+clk = 0;
+
+clear = 0;
+
+si = 0;
+
+#5 clear=1’b1;
+
+#5 clear=1’b0;
+
+#10 si=1’b1;
+
+#10 si=1’b0;
+
+#10 si=1’b0;
+
+#10 si=1’b1;
+
+#10 si=1’b0;
+
+#10 si=1’bx;
+
+end
+
+always #5 clk = ~clk;
+
+initial #150 $stop;
+
+endmodule
+
+
+
+
+
+
+
+
+
+
+
+2.Serial In Parallal Out....
+
+
+
+module sipo(clk,in,rst,q);
+  input clk,rst;
+  input in;
+  output reg [3:0]q;
+ 
+  always @ (posedge clk, posedge rst)
+    begin
+      if(rst)
+        q <= 0;
+        else 
+        q <= {in,q[3:1]};
+    end 
+endmodule
+
+
+module sipotb();
+  reg clk,in,rst;
+  wire [3:0]q;
+  sipo dut(clk,in,rst,q);
+  
+  initial 
+    begin
+      clk = 1;
+      forever #5 clk = ~clk;
+    end
+  
+  initial 
+    begin
+      rst=1;
+      #10 rst=0;in=1;
+      #10 in=0;
+      #10 in=1;
+      #10 in=0;
+      end
+  
+  initial 
+    begin
+      $dumpfile("sipotb.vcd");
+      $dumpvars(0,sipotb);
+      #100 $finish;
+      //
+    end
+  
+endmodule
+
+
+
+
+
+
+
+3.Parallal In parallal Out.........
+
+
+
+// Code your design here
+module pipo(clk,rst,ld,in,q);
+  input clk,rst,ld;
+  input [3:0]in;
+  output reg [3:0] q;
+  always @(posedge clk)
+      begin
+        if (rst)
+          q <= 0;
+        else if(ld)
+         q=in[3:0];
+         
+          
+      end
+endmodule
+
+// Code your testbench here
+
+module pipotb();
+  reg clk,rst,ld;
+  reg [3:0]in;
+  wire [3:0]q;
+  pipo m(clk,rst,ld,in,q);
+  initial
+    begin
+      $dumpfile("pipotb.vcd");
+      $dumpvars(0,pipotb);
+    end
+  initial
+    begin
+      clk=1;
+      forever #5 clk=~clk;
+    end
+   initial
+    begin
+      #10 rst=1;
+      #10 rst=0;ld=1;
+      #10 in=4'b1001;
+      
+      #200 $finish;
+    end
+endmodule
+      
+      
+
+
+
+
+
+4.Parallal In Serial Out...
+
+
+
+module piso(in,ld,clk,rst,q);
+  input ld,clk,rst;
+  input [3:0] in;
+  output q;
+  reg [3:0]qq;
+  assign q=qq[0];
+  always @ (posedge clk, posedge rst)
+    begin
+      if(rst)
+         qq<=0; 
+      else if(ld)
+          qq <=in;
+      else
+        qq <= {1'b0,qq[3:1]};
+    end
+endmodule  
+
+module pisotb();
+  reg ld,clk,rst;
+  reg [3:0] in;
+  wire q;
+  piso dut(in,ld,clk,rst,q);
+  
+   initial 
+    begin
+      clk = 1;
+      forever #5 clk = ~clk;
+    end
+  
+ initial 
+    begin
+      $dumpfile("pisotb.vcd");
+      $dumpvars(0,pisotb);
+      #100 $finish;
+    end
+  
+  initial 
+    begin
+      rst=1;
+      #10 rst=0;ld=1;in=4'b0111;
+      #10 ld=0;in=0;
+    end
+endmodule   

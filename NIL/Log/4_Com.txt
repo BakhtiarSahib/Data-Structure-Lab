@@ -1,0 +1,33 @@
+//4bit comparator 
+
+
+module comp(a,b,e,g,l);
+input [3:0]a,b;
+output reg e,g,l;
+
+always@ *
+begin
+if(a == b)
+begin
+e = 1'b1;
+g = 1'b0;
+l = 1'b0;
+end
+
+if(a>b)
+begin
+e = 1'b0;
+g = 1'b1;
+l = 1'b0;
+end
+
+if(a<b)
+begin
+e = 1'b0;
+g = 1'b0;
+l = 1'b1;
+end
+
+end
+endmodule
+

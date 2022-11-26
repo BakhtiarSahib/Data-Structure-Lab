@@ -1,0 +1,35 @@
+module d_ff(q, d, clk);
+
+input d;
+input clk;
+output reg q;
+
+always @(posedge clk)
+
+begin
+    q=d;
+end 
+endmodule
+
+module t_d_ff;
+
+reg d;
+reg clk;
+
+wire q;
+
+d_ff sample (
+.q(q),
+.d(d),
+.clk(clk)
+);
+
+initial begin
+ d = 0; clk = 0;
+
+ #100; d = 1;
+ #100; d = 0;
+ #100; d = 1; 
+end
+always #10 clk = ~clk;
+endmodule
